@@ -1,0 +1,93 @@
+{% if request.user.is_authenticated %}
+    <p>Welcome, {{ request.user.first_name}}!</p>
+    <a href="{% url 'music-form' %}">Share New Music</a>
+    <a href="{% url 'logout' %}">Logout</a>
+   <div>
+        <h2>Music Files Uploaded by You</h2>
+        <table>
+            <thead>
+              <tr>
+                <th scope = "col">Music File</th>
+                <th scope="col">Type</th>
+                <th scope="col">Upload Date</th>  
+              </tr>
+            </thead>
+            {% for d in yours_public_private%}
+            <tbody>
+              <tr>
+                <th >
+                    <audio controls>
+                        <source src="{{ d.file.url }}" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                      </audio>
+                      
+                </th>
+                <td>{{d.type_of}}</td>
+                <td>{{d.created_at}}</td>       
+            </tr>
+            </tbody>
+            {%endfor%}
+            {% for d in yours_protected%}
+            <tbody>
+              <tr>
+               <td><audio controls>
+                <source src={{d.file.url}} type="audio/mpeg">
+                Your browser does not support the audio element.
+              </audio></td>
+                <td>protected</td>
+                <td>{{d.created_at}}</td>       
+            </tr>
+            </tbody>
+            {%endfor%}
+          </table>
+            
+    </div>
+    <div>
+        <h2>Music Files Uploaded by others</h2>
+        <table>
+            <thead>
+              <tr>
+                <th scope = "col">Music File</th>
+                <th scope="col">Type</th>
+                <th scope="col">Upload Date</th>  
+                <th scope="col">Uploaded By</th>
+              </tr>
+            </thead>
+            {% for d in others_public%}
+            <tbody>
+              <tr>
+                <th ><audio controls>
+                    <source src={{d.file.url}} type="audio/mpeg">
+                    Your browser does not support the audio element.
+                  </audio></th>
+                <td>{{d.type_of}}</td>
+                <td>{{d.created_at}}</td>   
+                <td>{{d.user.email}}</td>    
+            </tr>
+            </tbody>
+            {%endfor%}
+            {% for d in others_protected%}
+            <tbody>
+              <tr>
+                <th ><audio controls>
+                    <source src={{d.file.url}} type="audio/mpeg">
+                    Your browser does not support the audio element.
+                  </audio></th>
+                <td>protected</td>
+                <td>{{d.created_at}}</td> 
+                <td>{{d.user.email}}</td>      
+            </tr>
+            </tbody>
+            {%endfor%}
+          </table>
+            
+    </div>
+
+
+
+    <!-- Add other authenticated user content -->
+{% else %}
+    <p>Please log in or register to continue.</p>
+    <a href="{% url 'login' %}">Login</a>
+    <a href="{% url 'register' %}">Register</a>
+{% endif %}

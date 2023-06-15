@@ -1,0 +1,36 @@
+<form method="post" action="{% url 'music-form' %}" enctype="multipart/form-data">
+    {%if msg != ""%}
+        {{msg}}
+       {{emails}}
+    {%endif%}
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+    <a href="{%url 'home'%}"> Home</a>
+</form>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+  // Hide the label and field on page load
+  $("#id_share_with_emails").prev('label').hide();
+  $("#id_share_with_emails").hide();
+
+  // Show/hide the label and field based on the selected choice
+  $("#id_upload_file_as").change(function() {
+    if ($(this).val() === "protected") {
+      $("#id_share_with_emails").prev('label').show();
+      $("#id_share_with_emails").show();
+    } else {
+      $("#id_share_with_emails").prev('label').hide();
+      $("#id_share_with_emails").hide();
+    }
+
+    // Hide the label and field when upload_file_as is "public" or "private"
+    if ($(this).val() === "public" || $(this).val() === "private") {
+      $("#id_share_with_emails").prev('label').hide();
+      $("#id_share_with_emails").hide();
+    }
+  });
+});
+</script>
+
