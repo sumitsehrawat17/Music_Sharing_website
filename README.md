@@ -1,7 +1,5 @@
 # music_sharing_website
 
-# Music Sharing Website
-
 This is a web application that allows users to upload and share music files with each other. Users can register on the platform using their email and log in using their email and password. The website provides various options for uploading and accessing music files, including public, private, and protected files.
 
 ## Features
